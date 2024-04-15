@@ -29,6 +29,7 @@
     <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -52,10 +53,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F6533B347F5EDD8ABC3231D8332B866BD01566BE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E6AEBD9AF0A74BCFA0204ACE10B48509E6EFFB63</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WindowsFormsApp1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>WindowsFormsApp1_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -136,6 +137,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="WindowsFormsApp1_1_TemporaryKey.pfx" />
     <None Include="WindowsFormsApp1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
