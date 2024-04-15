@@ -41,7 +41,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\Release'
+    SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\$(buildConfiguration)'
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
