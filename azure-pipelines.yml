@@ -12,14 +12,14 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Debug'
+  buildConfiguration: 'Release'
 
 steps:
-# - task: NuGetToolInstaller@1
+- task: NuGetToolInstaller@1
 
-# - task: NuGetCommand@2
-#   inputs:
-#     restoreSolution: '$(solution)'
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
 
 # - task: VSBuild@1
 #   inputs:
@@ -41,7 +41,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\Release'
+    SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\$(buildConfiguration)'
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
