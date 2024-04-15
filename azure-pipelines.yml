@@ -15,15 +15,22 @@ variables:
   buildConfiguration: 'Debug'
 
 steps:
-- task: NuGetToolInstaller@1
+# - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+# - task: NuGetCommand@2
+#   inputs:
+#     restoreSolution: '$(solution)'
+
+# - task: VSBuild@1
+#   inputs:
+#     solution: '$(solution)'
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
 
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
+    vsVersion: '17.0'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
