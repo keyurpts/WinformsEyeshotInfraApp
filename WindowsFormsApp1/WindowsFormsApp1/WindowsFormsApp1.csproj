@@ -24,9 +24,8 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://winformsclickonceapp.blob.core.windows.net/published-files-democlickonceappcicd/published/</InstallUrl>
-    <UpdateUrl>https://winformsclickonceapp.blob.core.windows.net/published-files-democlickonceappcicd/published/</UpdateUrl>
     <ProductName>TestWinformsEyeshotInfraApp</ProductName>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -79,6 +78,9 @@
       <HintPath>..\references\Infragistics\Infragistics4.Win.Misc.v23.1.dll</HintPath>
     </Reference>
     <Reference Include="Infragistics4.Win.SupportDialogs.v23.1, Version=23.1.20231.52, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v23.1">
+      <HintPath>..\references\Infragistics\Infragistics4.Win.UltraWinCalcManager.v23.1.dll</HintPath>
+    </Reference>
     <Reference Include="Infragistics4.Win.UltraWinCalcManager.v23.1.FormulaBuilder, Version=23.1.20231.52, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" />
     <Reference Include="Infragistics4.Win.UltraWinEditors.v23.1, Version=23.1.20231.52, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" />
     <Reference Include="Infragistics4.Win.UltraWinGrid.v23.1, Version=23.1.20231.52, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" />
