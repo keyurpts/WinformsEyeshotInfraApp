@@ -32,6 +32,7 @@ steps:
     solution: '$(solution)'
     vsVersion: '17.0'
     # msbuildArgs: '/target:publish'
+    msbuildArgs: '/target:publish /p:PublishDir=bin\Release'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -43,6 +44,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\$(buildConfiguration)'
+    # SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\publish'
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
