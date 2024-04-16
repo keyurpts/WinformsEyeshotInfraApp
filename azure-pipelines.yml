@@ -31,7 +31,7 @@ steps:
   inputs:
     solution: '$(solution)'
     vsVersion: '17.0'
-    msbuildArgs: '/target:publish'
+    # msbuildArgs: '/target:publish'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
