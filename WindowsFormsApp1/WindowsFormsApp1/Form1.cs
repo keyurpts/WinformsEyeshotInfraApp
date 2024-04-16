@@ -25,5 +25,11 @@ namespace WindowsFormsApp1
             design1.Entities.Add(c1, Color.Black);
             design1.Invalidate();
         }
+        private void btnroomno3_Click(object sender, EventArgs e)
+        {
+            Circle c1 = new Circle(new Point3D(0, 0, 0), 50);
+            design1.Entities.Add(c1, Color.Red);
+            design1.Invalidate();
+        }
     }
 }

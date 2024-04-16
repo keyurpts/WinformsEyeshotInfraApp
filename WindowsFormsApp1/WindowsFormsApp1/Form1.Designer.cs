@@ -35,6 +35,7 @@ namespace WindowsFormsApp1
             Infragistics.Win.UltraWinToolbars.RibbonGroup ribbonGroup1 = new Infragistics.Win.UltraWinToolbars.RibbonGroup("ribbonGroup1");
             Infragistics.Win.UltraWinToolbars.ButtonTool buttonTool2 = new Infragistics.Win.UltraWinToolbars.ButtonTool("ButtonTool1");
             Infragistics.Win.UltraWinToolbars.ButtonTool buttonTool1 = new Infragistics.Win.UltraWinToolbars.ButtonTool("ButtonTool1");
+            Infragistics.Win.UltraWinToolbars.ButtonTool buttonTool3 = new Infragistics.Win.UltraWinToolbars.ButtonTool("ButtonTool3");
             devDept.Eyeshot.Control.CancelToolBarButton cancelToolBarButton1 = new devDept.Eyeshot.Control.CancelToolBarButton("Cancel", devDept.Eyeshot.Control.ToolBarButton.styleType.ToggleButton, true, true);
             devDept.Eyeshot.Control.ProgressBar progressBar1 = new devDept.Eyeshot.Control.ProgressBar(devDept.Eyeshot.Control.ProgressBar.styleType.Speedometer, 0, "Idle", System.Drawing.Color.Black, System.Drawing.Color.Transparent, System.Drawing.Color.Green, 1D, true, cancelToolBarButton1, false, 0.1D, 0.333D, true);
             devDept.Eyeshot.Control.DisplayModeSettingsRendered displayModeSettingsRendered1 = new devDept.Eyeshot.Control.DisplayModeSettingsRendered(true, devDept.Eyeshot.edgeColorMethodType.SingleColor, System.Drawing.Color.Black, 1F, 2F, devDept.Eyeshot.silhouettesDrawingType.ImageBased, false, devDept.Graphics.shadowType.Planar, null, false, false, 0.3F, devDept.Graphics.realisticShadowQualityType.High);
@@ -109,8 +110,11 @@ namespace WindowsFormsApp1
             this.ultraToolbarsManager1.ShowFullMenusDelay = 500;
             buttonTool1.SharedPropsInternal.Caption = "ButtonTool1";
             buttonTool1.ToolClick += new ToolClickEventHandler(this.btnOkRoom_Click);
+
+            buttonTool3.SharedPropsInternal.Caption = "ButtonTool3";
+            buttonTool3.ToolClick += new ToolClickEventHandler(this.btnroomno3_Click);
             this.ultraToolbarsManager1.Tools.AddRange(new Infragistics.Win.UltraWinToolbars.ToolBase[] {
-            buttonTool1});
+            buttonTool1,buttonTool3});
             // 
             // Form1_Fill_Panel
             // 
