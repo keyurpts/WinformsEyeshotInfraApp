@@ -21,8 +21,8 @@ namespace WindowsFormsApp1
 
         private void btnOkRoom_Click(object sender, EventArgs e)
         {
-            Circle c1 = new Circle(new Point3D(0, 0, 0), 100);
-            design1.Entities.Add(c1, Color.Yellow);
+            Circle c1 = new Circle(new Point3D(0, 0, 0), 70);
+            design1.Entities.Add(c1, Color.Blue);
             design1.Invalidate();
         }
         private void btnroomno3_Click(object sender, EventArgs e)
