@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace WindowsFormsApp1
 {
@@ -17,6 +18,9 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+
+            //take the form title from the App.config file
+            this.Text = ConfigurationManager.AppSettings["ApplicationTitle"];
         }
 
         private void btnOkRoom_Click(object sender, EventArgs e)
