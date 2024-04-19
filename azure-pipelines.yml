@@ -58,6 +58,9 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      # Import the System.Text.RegularExpressions assembly
+      Add-Type -AssemblyName "System.Text.RegularExpressions"
+      
       # Define the path to the .exe.config file in the drop folder
       $configFilePath = "$(Build.ArtifactStagingDirectory)\WindowsFormsApp1.exe.config"
       
@@ -65,14 +68,17 @@ steps:
       $titleDev = "TitleInDevEnv"
       
       # Read the content of the .exe.config file
-      $configContent = Get-Content -Path $configFilePath
+      $configContent = Get-Content -Path $configFilePath -Raw
       
-      # Replace the title value based on the environment
+      # Define the regex pattern and replacement
+      $pattern = '<add key="ApplicationTitle" value=".*?"/>'
+      $replacement = '<add key="ApplicationTitle" value="' + $titleDev + '"/>'
       
-      $configContent = $configContent -replace '<add key="ApplicationTitle" value=".*"/>', '<add key="ApplicationTitle" value="' + $titleDev + '"/>'
+      # Perform the regex replacement
+      $newConfigContent = [Regex]::Replace($configContent, $pattern, $replacement)
       
       # Write the updated content back to the .exe.config file
-      Set-Content -Path $configFilePath -Value $configContent
+      Set-Content -Path $configFilePath -Value $newConfigContent
 
 - task: PublishBuildArtifacts@1
   inputs:
