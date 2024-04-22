@@ -21,13 +21,46 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+# - task: VSBuild@1
+#   inputs:
+#     solution: '$(solution)'
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
+
+# - task: VSTest@2
+#   inputs:
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
+    vsVersion: '17.0'
+    # msbuildArgs: '/target:publish'
+    msbuildArgs: '/target:publish /p:PublishDir=bin\Release'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
+# - task: VSTest@2
+#   inputs:
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\$(buildConfiguration)'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\\$(Build.SourceBranchName)'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)\\$(Build.SourceBranchName)'
+    artifactName: 'MyFeatureBranchArtifact-$(Build.SourceBranchName)-$(Build.BuildId)'
+    # artifactName: 'drop'
+    publishLocation: 'Container'
