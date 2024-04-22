@@ -123,5 +123,6 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)\\$(Build.SourceBranchName)'
-    artifactName: 'MyFeatureBranchArtifact-$(Build.SourceBranchName)-$(Build.BuildId)'
+    # artifactName: 'MyFeatureBranchArtifact-$(Build.SourceBranchName)-$(Build.BuildId)'
+    artifactName: 'drop'
     publishLocation: 'Container'
