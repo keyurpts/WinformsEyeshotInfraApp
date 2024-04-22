@@ -21,12 +21,50 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+# Task to change the update and install url for UAT deployment
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Define the path to your .csproj file
+      $filePath = "WindowsFormsApp1/WindowsFormsApp1/WindowsFormsApp1.csproj"
+      
+      # Define the new URLs
+      $newInstallUrl = "https://winformsclickonceapp.blob.core.windows.net/published-files-uat/published/"
+      $newUpdateUrl = "https://winformsclickonceapp.blob.core.windows.net/published-files-uat/published/"
+      
+      # Replace only the text inside InstallUrl tags
+      (Get-Content $filePath) | ForEach-Object { $_ -replace "(?<=<InstallUrl>).*?(?=</InstallUrl>)", $newInstallUrl } | Set-Content $filePath
+      
+      # Replace only the text inside UpdateUrl tags
+      (Get-Content $filePath) | ForEach-Object { $_ -replace "(?<=<UpdateUrl>).*?(?=</UpdateUrl>)", $newUpdateUrl } | Set-Content $filePath
+      
+      Write-Host "InstallationURL and UpdateURL updated successfully."
+
+# Task to change the ProductName to UAT
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Define the path to your .csproj file
+      $filePath = "WindowsFormsApp1/WindowsFormsApp1/WindowsFormsApp1.csproj"
+      
+      # Define the new product name
+      $newProductName = "TestWinformsEyeshotInfraAppUAT"
+      
+      # Replace only the text inside ProductName tags
+      (Get-Content $filePath) | ForEach-Object { $_ -replace "(?<=<ProductName>).*?(?=</ProductName>)", $newProductName } | Set-Content $filePath
+      
+      Write-Host "ProductName updated successfully."
+
+# Task to increase the version number
 - task: PowerShell@2
   inputs:
     filePath: 'WindowsFormsApp1/WindowsFormsApp1/buildTools/UpdateClickonceVersionNumberInProjectFile.ps1'
     arguments: '-ProjectFile WindowsFormsApp1.csproj -BuildSystemsBuildId $(Build.BuildId)'
     workingDirectory: 'WindowsFormsApp1/WindowsFormsApp1'
 
+# Task to change the form title from app.config file
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
