@@ -65,7 +65,7 @@ steps:
       $configFilePath = "$(Build.ArtifactStagingDirectory)\WindowsFormsApp1.exe.config"
       
       # Define the title values based on the environment
-      $titleDev = "TitleInDevEnv"
+      $titleDev = "TitleEditedThroughPipeline"
       
       # Read the content of the .exe.config file
       $configContent = Get-Content -Path $configFilePath -Raw
