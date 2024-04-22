@@ -33,6 +33,29 @@ steps:
     arguments: '-ProjectFile WindowsFormsApp1.csproj -BuildSystemsBuildId $(Build.BuildId)'
     workingDirectory: 'WindowsFormsApp1/WindowsFormsApp1'
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Define the path to the app.config file
+      $configFilePath = "WindowsFormsApp1/WindowsFormsApp1/App.config"
+      
+      # Define the environment variable value for ApplicationTitle
+      $titleValue = "NewTitle2"
+      
+      # Read the content of the app.config file
+      $configContent = Get-Content -Path $configFilePath
+      
+      # Define the regex pattern to find and replace the ApplicationTitle value
+      $pattern = '<add key="ApplicationTitle" value=".*?"/>'
+      $replacement = '<add key="ApplicationTitle" value="' + $titleValue + '"/>'
+      
+      # Perform the regex replacement
+      $newConfigContent = [Regex]::Replace($configContent, $pattern, $replacement)
+      
+      # Write the updated content back to the app.config file
+      Set-Content -Path $configFilePath -Value $newConfigContent
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -54,31 +77,31 @@ steps:
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Import the System.Text.RegularExpressions assembly
-      Add-Type -AssemblyName "System.Text.RegularExpressions"
+# - task: PowerShell@2
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       # Import the System.Text.RegularExpressions assembly
+#       Add-Type -AssemblyName "System.Text.RegularExpressions"
       
-      # Define the path to the .exe.config file in the drop folder
-      $configFilePath = "$(Build.ArtifactStagingDirectory)\WindowsFormsApp1.exe.config"
+#       # Define the path to the .exe.config file in the drop folder
+#       $configFilePath = "$(Build.ArtifactStagingDirectory)\WindowsFormsApp1.exe.config"
       
-      # Define the title values based on the environment
-      $titleDev = "TitleEditedThroughPipeline"
+#       # Define the title values based on the environment
+#       $titleDev = "TitleEditedThroughPipeline"
       
-      # Read the content of the .exe.config file
-      $configContent = Get-Content -Path $configFilePath -Raw
+#       # Read the content of the .exe.config file
+#       $configContent = Get-Content -Path $configFilePath -Raw
       
-      # Define the regex pattern and replacement
-      $pattern = '<add key="ApplicationTitle" value=".*?"/>'
-      $replacement = '<add key="ApplicationTitle" value="' + $titleDev + '"/>'
+#       # Define the regex pattern and replacement
+#       $pattern = '<add key="ApplicationTitle" value=".*?"/>'
+#       $replacement = '<add key="ApplicationTitle" value="' + $titleDev + '"/>'
       
-      # Perform the regex replacement
-      $newConfigContent = [Regex]::Replace($configContent, $pattern, $replacement)
+#       # Perform the regex replacement
+#       $newConfigContent = [Regex]::Replace($configContent, $pattern, $replacement)
       
-      # Write the updated content back to the .exe.config file
-      Set-Content -Path $configFilePath -Value $newConfigContent
+#       # Write the updated content back to the .exe.config file
+#       Set-Content -Path $configFilePath -Value $newConfigContent
 
 - task: PublishBuildArtifacts@1
   inputs:
