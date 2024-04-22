@@ -1,0 +1,91 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- UAT
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: PowerShell@2
+  inputs:
+    filePath: 'WindowsFormsApp1/WindowsFormsApp1/buildTools/UpdateClickonceVersionNumberInProjectFile.ps1'
+    arguments: '-ProjectFile WindowsFormsApp1.csproj -BuildSystemsBuildId $(Build.BuildId)'
+    workingDirectory: 'WindowsFormsApp1/WindowsFormsApp1'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Define the path to the app.config file
+      $configFilePath = "WindowsFormsApp1/WindowsFormsApp1/App.config"
+      
+      # Define the environment variable value for ApplicationTitle
+      $titleValue = "TitleFromPipelineUAT"
+      
+      # Read the content of the app.config file
+      $configContent = Get-Content -Path $configFilePath
+      
+      # Define the regex pattern to find and replace the ApplicationTitle value
+      $pattern = '<add key="ApplicationTitle" value=".*?"/>'
+      $replacement = '<add key="ApplicationTitle" value="' + $titleValue + '"/>'
+      
+      # Perform the regex replacement
+      $newConfigContent = [Regex]::Replace($configContent, $pattern, $replacement)
+      
+      # Write the updated content back to the app.config file
+      Set-Content -Path $configFilePath -Value $newConfigContent
+
+# - task: VSBuild@1
+#   inputs:
+#     solution: '$(solution)'
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    vsVersion: '17.0'
+    # msbuildArgs: '/target:publish'
+    msbuildArgs: '/target:publish /p:PublishDir=bin\Release'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+# - task: VSTest@2
+#   inputs:
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'WindowsFormsApp1\\WindowsFormsApp1\\bin\\$(buildConfiguration)'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\\$(Build.SourceBranchName)'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)\\$(Build.SourceBranchName)'
+    artifactName: 'MyFeatureBranchArtifact-$(Build.SourceBranchName)-$(Build.BuildId)'
+    publishLocation: 'Container'
+
+
