@@ -73,7 +73,7 @@ steps:
       $configFilePath = "WindowsFormsApp1/WindowsFormsApp1/App.config"
       
       # Define the environment variable value for ApplicationTitle
-      $titleValue = "TitleFromPipelineUAT"
+      $titleValue = "TitleFromPipelineUAT2"
       
       # Read the content of the app.config file
       $configContent = Get-Content -Path $configFilePath
